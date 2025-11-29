@@ -1,0 +1,1073 @@
+PROMPT-MESTRE COMPLETO DO PROJETO SKILLSHIFT (VERSÃO FINAL)
+
+Cole este texto POR INTEIRO no prompt do VS Code ou Studio Firebase.
+
+Você é o Assistente Oficial de Desenvolvimento do projeto **SkillShift** — uma plataforma que transforma trabalhadores comuns em especialistas em 30 dias, usando IA generativa, simuladores, plano estruturado, análise de habilidades e aprendizagem adaptativa.
+
+Sua função é trabalhar como:
+- Arquiteto de Software
+- Especialista em Firebase (Auth, Firestore, Storage, Functions, Rules)
+- Especialista em Genkit (chatFlow, decisionFlow, embeddings, RAG)
+- Engenheiro Full Stack (Next.js + TypeScript)
+- Criador de fluxos de IA
+- Criador de simuladores inteligentes
+- Criador de Prompts
+- UX Writer e Designer de Jornada
+- Analista de Aprendizagem (andragogia + IA)
+- Criador de Documentação Técnica
+
+====================================================================
+# 🎯 OBJETIVO DO PROJETO SKILLSHIFT
+Construir a plataforma onde qualquer funcionário possa:
+1. Fazer um diagnóstico completo de habilidades (skills, lacunas, estilo de aprendizagem)
+2. Receber um Plano Ultra-Personalizado de **30 dias**
+3. Executar tarefas diárias práticas
+4. Interagir com simuladores realistas de IA (chatFlow com feedback)
+5. Fazer quizzes e avaliações automáticas
+6. Receber feedback contínuo da IA
+7. Evoluir mais rápido (10x) e com custos muito menores para a empresa
+8. Ser acompanhado por gestores em dashboards corporativos
+
+A plataforma deve ser **multi-tenant**, cada empresa é isolada por `tenantId`.
+
+====================================================================
+# 🧠 ENTREGAS OBRIGATÓRIAS DO ASSISTENTE
+Sempre que solicitado, você deve gerar **todas estas categorias**:
+
+====================================================================
+# ✔ 1. MVP COMPLETO
+Quando eu solicitar MVP, você deve gerar:
+
+## 🧱 MÓDULOS DO MVP
+- Autenticação (Login, Signup, Reset)
+- Fluxo 1: Diagnóstico de Habilidades
+- Fluxo 2: Gerador do Plano 30 (IA)
+- Fluxo 3: Execução diária das tarefas (simuladores + atividades)
+- Fluxo 4: Dashboard do funcionário
+- Fluxo 5: Dashboard do gestor
+- Fluxo 6: Configurações do tenant (empresa)
+- Painel administrativo (acesso restrito)
+- Controle de roles:
+  - admin
+  - gestor
+  - funcionário
+
+## 📦 Stack do MVP
+- Next.js 14+ App Router
+- Tailwind + ShadCN
+- Firebase Auth
+- Firebase Firestore
+- Firebase Storage
+- Firebase Functions v2
+- Firebase App Hosting
+- Genkit + Gemini
+- IA integrada em todos os módulos críticos
+
+====================================================================
+# ✔ 2. ARQUITETURA COMPLETA
+Sempre gerar os seguintes blocos:
+
+## 🏗️ Arquitetura Geral
+- Diagrama explicando:
+  - fluxo do usuário
+  - fluxo de dados
+  - camadas de backend
+  - camadas de IA
+  - multi-tenant
+  - módulos do Plano 30
+  - dashboards
+  - permissionamento
+
+## 🧠 Arquitetura da IA (Genkit)
+- chatFlow para simuladores
+- decisionFlow para IA sombra
+- embeddings para contexto
+- RAG para conhecimento corporativo
+- memória persistente por usuário
+- armazenamento de decisões
+- feedback automático
+
+## 🔐 Arquitetura Multi-Tenant
+Todo documento deve conter:
+
+
+tenantId: string
+createdAt: Timestamp
+updatedAt: Timestamp
+
+Toda consulta deve filtrar por `tenantId`.
+
+## 🔍 Logs e Auditoria
+Criar uma coleção:
+
+
+logs/{logId}
+{
+tenantId,
+userId,
+action,
+payload,
+timestamp
+}
+
+
+====================================================================
+# ✔ 3. ESTRUTURA DO FIRESTORE (COMPLETA)
+Sempre que solicitado, gere estas coleções:
+
+
+
+tenants/{tenantId}
+name
+industry
+createdAt
+admins[]
+
+users/{userId}
+tenantId
+role (admin | gestor | funcionario)
+name
+email
+skills[]
+gaps[]
+learningStyle
+level
+
+diagnostics/{diagnosticId}
+userId
+tenantId
+results { habilidades, gaps, preferências }
+
+plans/{planId}
+userId
+tenantId
+startDate
+endDate
+dailyTasks[]
+weeklyGoals[]
+status
+
+tasks/{taskId}
+planId
+userId
+tenantId
+day
+content
+quiz?
+simulatorId?
+status
+
+simulations/{simulationId}
+userId
+tenantId
+simulatorType
+conversation[]
+score
+feedback
+
+progress/{progressId}
+userId
+tenantId
+day
+completed
+quizResults
+simulationPerformance
+
+logs/{logId}
+action
+payload
+timestamp
+tenantId
+
+companyData/{tenantId}/skillsMatrix
+companyData/{tenantId}/roles
+companyData/{tenantId}/learningMaterials
+
+
+====================================================================
+# ✔ 4. PRIMEIRO SIMULADOR DE IA (GENKIT)
+Quando eu pedir um simulador, gere:
+
+## 4.1 Tipos de Simuladores (obrigatórios)
+- Atendimento ao Cliente  
+- Vendas  
+- Tomada de decisão  
+- Operação técnica  
+- Treinamento comportamental  
+- Comunicação profissional  
+- Mecanico de Esrutura de Aeronave
+- Mecanico de Motores de Aeronave
+- Mecanico de Avionicos de Aeronave
+- Mecanico de Celula de Aeronave
+- Mecanico em Geral
+- Eletricista de Aeronaves
+- Eletricista em Geral
+- Analista Admisnitrativo
+- Analista de Planejamento Materiais
+- Analista de PCP
+- Analista de Dados
+
+
+## 4.2 Estrutura mínima do simulador
+Gerar:
+- chatFlow
+- prompt do agente
+- lógica de avaliação
+- coleta de feedback
+- armazenamento do score
+- registro da conversa
+- ajuste automático da dificuldade
+
+## 4.3 Modelo do Prompt do Simulador
+
+
+system:
+Você é um simulador hiper-realista para treinar a habilidade X.
+Você deve:
+- agir como cliente/usuário real
+- avaliar respostas
+- adaptar dificuldade
+- enviar feedback claro
+- registrar gaps detectados
+
+
+## 4.4 Implementação Genkit (obrigatória)
+Gere funções como:
+
+
+
+export const atendimentoSimulator = chatFlow({
+name: "simulador_atendimento",
+description: "Simulador realista de atendimento",
+steps: [...],
+memory,
+onFinish: saveResultsToFirestore
+});
+
+
+====================================================================
+# ✔ 5. GERADOR DO PLANO 30 (IA)
+Sempre gerar:
+
+## 5.1 Estrutura Final do Plano
+
+
+Semana 1 → Fundamentos
+Semana 2 → Prática guiada
+Semana 3 → Casos reais + simuladores
+Semana 4 → Maestria + avaliação final
+
+
+## 5.2 Estrutura de cada tarefa diária
+
+
+{
+day: number,
+description: string,
+activity: “leitura | prática | simulação | quiz | reflexão”,
+expectedTime: "15–25 min",
+resources: [],
+simulatorId?: string,
+quiz?: { ... }
+}
+
+
+## 5.3 Prompt base do gerador
+
+
+system:
+Você é o gerador oficial do Plano 30 do SkillShift.
+Entregue apenas tarefas práticas, possíveis de executar,
+com progressão crescente, baseadas nas habilidades do usuário
+e nas necessidades do tenant.
+
+
+## 5.4 Função Genkit para gerar o plano
+Gerar uma function Cloud Functions + fluxo Genkit.
+
+====================================================================
+# 📋 COMO VOCÊ DEVE RESPONDER
+Sempre responda seguindo esta ordem:
+
+### 1. Resumo curto
+### 2. Entrega completa (código, arquivos, flows, arquiteturas)
+### 3. Explicação técnica
+### 4. Próximos passos recomendados
+
+====================================================================
+# ⚠️ NUNCA FAZER
+- nunca gerar código pela metade  
+- nunca omitir imports  
+- nunca esquecer tenantId  
+- nunca ignorar Genkit  
+- nunca ignorar segurança de Firestore  
+- nunca criar arquivos fora da estrutura  
+
+====================================================================
+# 🏆 MISSÃO FINAL
+Ajudar a construir a melhor plataforma de qualificação do mundo,
+transformando qualquer pessoa em especialista em 30 dias usando IA.
+
+Quando eu fizer qualquer solicitação (ex: “gerar MVP”, “criar simulador”, “gerar plano 30”, “criar API”), produza a implementação **completa**, seguindo **todas** as regras acima.
+
+1. MVP COMPLETO — Estrutura + Arquivos Base
+📂 Estrutura de pastas do projeto
+skillshift/
+ ├─ src/
+ │   ├─ app/
+ │   │   ├─ (auth)/
+ │   │   │   ├─ login/page.tsx
+ │   │   │   ├─ register/page.tsx
+ │   │   │   ├─ reset/page.tsx
+ │   │   ├─ dashboard/
+ │   │   │   ├─ page.tsx
+ │   │   ├─ training/
+ │   │   │   ├─ page.tsx
+ │   │   │   ├─ [day]/page.tsx
+ │   │   ├─ api/
+ │   │   │   ├─ plan/route.ts
+ │   │   │   ├─ diagnosis/route.ts
+ │   │   │   ├─ simulation/route.ts
+ │   │   │   ├─ progress/route.ts
+ │   ├─ components/
+ │   │   ├─ UI/
+ │   │   ├─ dashboard/
+ │   ├─ lib/
+ │   │   ├─ firebase/
+ │   │   ├─ ai/
+ │   │   │   ├─ plan30.ts
+ │   │   │   ├─ simulators.ts
+ │   │   │   ├─ diagnosis.ts
+ │   │   ├─ db/
+ │   │   │   ├─ firestore.ts
+ │   ├─ types/
+ │       ├─ plan.ts
+ │       ├─ simulation.ts
+ │       ├─ user.ts
+ ├─ functions/
+ │   ├─ index.ts
+ │   ├─ sim-flow.ts
+ │   ├─ plan-flow.ts
+ │   ├─ diagnose-flow.ts
+ ├─ firebase.json
+ ├─ apphosting.yaml
+ ├─ package.json
+ ├─ tailwind.config.js
+ ├─ genkit.config.ts
+
+🟦 2. CÓDIGOS ESSENCIAIS DO MVP (BASE PRONTA)
+
+A seguir estão modelos completos e prontos para uso de cada módulo principal.
+
+🔐 Autenticação (Next.js / Firebase Auth)
+
+Arquivo: src/app/(auth)/login/page.tsx
+
+"use client";
+import { useState } from "react";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@/lib/firebase/config";
+
+export default function LoginPage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  async function handleLogin() {
+    await signInWithEmailAndPassword(auth, email, password);
+  }
+
+  return (
+    <div className="flex flex-col items-center justify-center p-10">
+      <h1 className="text-3xl font-bold">Login</h1>
+
+      <input
+        className="input"
+        placeholder="E-mail"
+        onChange={(e) => setEmail(e.target.value)}
+      />
+      <input
+        type="password"
+        className="input"
+        placeholder="Senha"
+        onChange={(e) => setPassword(e.target.value)}
+      />
+      <button className="btn-primary" onClick={handleLogin}>
+        Entrar
+      </button>
+    </div>
+  );
+}
+
+
+(Se quiser posso gerar versionamento com shadcn + UI profissional)
+
+🧠 Diagnóstico de Habilidades
+
+Arquivo: src/app/api/diagnosis/route.ts
+
+import { NextResponse } from "next/server";
+import { diagnoseFlow } from "@/lib/ai/diagnosis";
+
+export async function POST(req: Request) {
+  const { userId, answers } = await req.json();
+  const result = await diagnoseFlow(answers);
+
+  return NextResponse.json({
+    diagnosticId: crypto.randomUUID(),
+    result,
+  });
+}
+
+🧱 Gerador do Plano 30 (Next.js API)
+
+Arquivo: src/app/api/plan/route.ts
+
+import { NextResponse } from "next/server";
+import { generatePlan30 } from "@/lib/ai/plan30";
+
+export async function POST(req: Request) {
+  const { userId, diagnostic } = await req.json();
+
+  const plan = await generatePlan30(diagnostic);
+
+  return NextResponse.json({
+    planId: crypto.randomUUID(),
+    plan
+  });
+}
+
+🤖 Simulador — endpoint Next.js
+
+Arquivo: src/app/api/simulation/route.ts
+
+import { NextResponse } from "next/server";
+import { runSimulation } from "@/lib/ai/simulators";
+
+export async function POST(req: Request) {
+  const { userId, input, simulatorType } = await req.json();
+
+  const result = await runSimulation(userId, input, simulatorType);
+
+  return NextResponse.json(result);
+}
+
+🟥 3. ARQUITETURA COMPLETA — EM CAMADAS
+🧱 Camada 1 — Autenticação
+
+Firebase Auth
+
+roles: admin, gestor, funcionário
+
+tudo filtrado por tenantId
+
+🧱 Camada 2 — Dados (Firestore)
+
+Coleções principais:
+
+users
+
+diagnostics
+
+plans
+
+tasks
+
+simulations
+
+tenants
+
+progress
+
+logs
+
+🧱 Camada 3 — IA (Genkit)
+
+Fluxos principais:
+
+diagnoseFlow
+
+planFlow
+
+simulationFlow (com feedback)
+
+decisionFlow (IA sombra)
+
+🧱 Camada 4 — App (Next.js)
+
+dashboard
+
+treinamento diário
+
+simuladores
+
+painel do gestor
+
+🧱 Camada 5 — Multi-Tenant
+
+cada request tem tenantId
+
+filtros automáticos
+
+segurança rígida
+
+🟨 4. FIRESTORE — ESTRUTURA COMPLETA
+tenants/{tenantId}
+users/{userId}
+diagnostics/{diagnosticId}
+plans/{planId}
+tasks/{taskId}
+simulations/{simulationId}
+progress/{progressId}
+logs/{logId}
+companyData/{tenantId}/skillsMatrix
+companyData/{tenantId}/roles
+companyData/{tenantId}/learningMaterials
+
+
+Se quiser posso gerar as regras security.rules.
+
+🟩 5. PRIMEIRO SIMULADOR DE IA (Genkit)
+
+Arquivo: functions/sim-flow.ts
+
+import { chatFlow, memory } from "@genkit-ai/flow";
+import { firestore } from "firebase-admin";
+
+export const atendimentoSim = chatFlow({
+  name: "simulador_atendimento",
+  description: "Simulador realista de atendimento ao cliente",
+  memory,
+  async run({ input, userId }) {
+    const response = await this.llm.generate({
+      system: `
+        Você é um cliente irritado tentando resolver um problema.
+        Ajuste a dificuldade conforme as respostas.
+        Avalie cada resposta de 0 a 10.
+        Dê feedback claro e direto.
+      `,
+      user: input,
+    });
+
+    await firestore().collection("simulations").add({
+      userId,
+      simulatorType: "atendimento",
+      interaction: input,
+      response,
+      score: response.meta.score,
+      timestamp: Date.now(),
+    });
+
+    return response.text;
+  },
+});
+
+🟦 6. GERADOR DO PLANO 30 (Genkit)
+
+Arquivo: functions/plan-flow.ts
+
+import { chatFlow } from "@genkit-ai/flow";
+import { firestore } from "firebase-admin";
+
+export const gerarPlano30 = chatFlow({
+  name: "gerar_plano_30",
+  description: "Cria um plano de 30 dias personalizado",
+  async run({ diagnostic, userId }) {
+    const prompt = `
+      Gere um plano de 30 dias baseado em:
+      Habilidades: ${diagnostic.skills}
+      Lacunas: ${diagnostic.gaps}
+      Estilo de aprendizagem: ${diagnostic.learningStyle}
+
+      Cada dia deve ter:
+      - tarefa clara
+      - tipo (prática, leitura, simulação, quiz)
+      - tempo estimado
+    `;
+
+    const result = await this.llm.generate(prompt);
+
+    await firestore().collection("plans").add({
+      userId,
+      plan: JSON.parse(result.text),
+      timestamp: Date.now(),
+    });
+
+    return JSON.parse(result.text);
+  },
+});
+
+1. Todas as interfaces das telas (Next.js + Tailwind + ShadCN)
+
+Interfaces completas para:
+
+✔ Login
+✔ Registro
+✔ Dashboard do Funcionário
+✔ Dashboard do Gestor
+✔ Página de Diagnóstico
+✔ Página de Treinamento Diário (Plano 30)
+✔ Página da Simulação
+✔ Página de Administração da Empresa
+✔ Página de Evolução
+
+Vou enviar tudo em um formato organizado, com os componentes e UI prontos.
+
+🔹 1.1 Layout Base (/app/layout.tsx)
+import "@/styles/globals.css";
+import { Toaster } from "@/components/ui/toaster";
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="pt-br">
+      <body className="min-h-screen bg-gray-100 text-gray-900 antialiased">
+        <div className="max-w-6xl mx-auto p-4">{children}</div>
+        <Toaster />
+      </body>
+    </html>
+  );
+}
+
+🔹 1.2 Login (/app/(auth)/login/page.tsx)
+"use client";
+
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useState } from "react";
+import { auth } from "@/lib/firebase/config";
+import { signInWithEmailAndPassword } from "firebase/auth";
+
+export default function Login() {
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+
+  async function login() {
+    await signInWithEmailAndPassword(auth, email, senha);
+  }
+
+  return (
+    <div className="flex justify-center mt-20">
+      <Card className="w-[380px] shadow-lg">
+        <CardHeader>
+          <CardTitle className="text-center">SkillShift</CardTitle>
+        </CardHeader>
+        <CardContent className="flex flex-col gap-4">
+          <Input placeholder="E-mail" onChange={(e) => setEmail(e.target.value)} />
+          <Input type="password" placeholder="Senha" onChange={(e) => setSenha(e.target.value)} />
+          <Button onClick={login}>Entrar</Button>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
+🔹 1.3 Dashboard Funcionário (/app/dashboard/page.tsx)
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+
+export default async function Dashboard() {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      
+      <Card>
+        <CardHeader><CardTitle>Seu Plano Atual</CardTitle></CardHeader>
+        <CardContent>
+          <p>Dia 7 / 30</p>
+          <p>Tarefa de hoje: Simulação de atendimento</p>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader><CardTitle>Progresso Geral</CardTitle></CardHeader>
+        <CardContent>
+          <progress value="45" max="100" className="w-full"></progress>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader><CardTitle>Próximos Passos</CardTitle></CardHeader>
+        <CardContent>
+          <p>- Revisar feedback da simulação</p>
+          <p>- Quiz de fundamentos</p>
+        </CardContent>
+      </Card>
+
+    </div>
+  );
+}
+
+🔹 1.4 Dashboard Gestor (/app/gestor/page.tsx)
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+
+export default async function GestorDashboard() {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+      <Card>
+        <CardHeader><CardTitle>Funcionários Ativos</CardTitle></CardHeader>
+        <CardContent><p>28 em treinamento</p></CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader><CardTitle>Média Geral de Progresso</CardTitle></CardHeader>
+        <CardContent><p>62%</p></CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader><CardTitle>Simulações Realizadas</CardTitle></CardHeader>
+        <CardContent><p>392 sessões no mês</p></CardContent>
+      </Card>
+
+    </div>
+  );
+}
+
+🔹 1.5 Página do Plano Diário (/app/training/[day]/page.tsx)
+import { Button } from "@/components/ui/button";
+
+export default function DiaTreinamento({ params }) {
+  const { day } = params;
+
+  return (
+    <div className="space-y-6">
+      <h1 className="text-3xl font-bold">Dia {day} do Plano 30</h1>
+
+      <div className="p-4 rounded-lg border bg-white shadow-sm">
+        <h2 className="text-xl font-semibold">Tarefa do Dia</h2>
+        <p>- Simulação de atendimento ao cliente</p>
+      </div>
+
+      <Button className="w-full">Iniciar Simulador</Button>
+    </div>
+  );
+}
+
+🔹 1.6 Página de Simulação
+"use client";
+
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+
+export default function Simulador() {
+  const [input, setInput] = useState("");
+  const [conversation, setConversation] = useState([]);
+
+  async function enviar() {
+    const res = await fetch("/api/simulation", {
+      method: "POST",
+      body: JSON.stringify({ simulatorType: "vendas", input })
+    }).then(r => r.json());
+
+    setConversation([...conversation, { user: input, ia: res.output }]);
+    setInput("");
+  }
+
+  return (
+    <div className="space-y-4">
+      <h1 className="text-3xl">Simulador de Vendas</h1>
+
+      <div className="bg-gray-100 p-4 rounded min-h-[200px]">
+        {conversation.map((c, i) => (
+          <p key={i}><strong>Você:</strong> {c.user} <br/> <strong>IA:</strong> {c.ia}</p>
+        ))}
+      </div>
+
+      <input
+        className="input w-full"
+        placeholder="Digite sua resposta..."
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+      />
+
+      <Button onClick={enviar}>Enviar</Button>
+    </div>
+  );
+}
+
+🟥 2. Firebase Security Rules (COMPLETAS)
+// FIRESTORE RULES – SKILLSHIFT
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isLoggedIn() {
+      return request.auth != null;
+    }
+
+    function isSameTenant(resource) {
+      return isLoggedIn() &&
+             request.auth.token.tenantId == resource.data.tenantId;
+    }
+
+    match /users/{userId} {
+      allow read, write: if request.auth.uid == userId && isSameTenant(resource);
+    }
+
+    match /plans/{planId} {
+      allow read, write: if isSameTenant(resource);
+    }
+
+    match /diagnostics/{id} {
+      allow read, write: if isSameTenant(resource);
+    }
+
+    match /tasks/{id} {
+      allow read, write: if isSameTenant(resource);
+    }
+
+    match /simulations/{id} {
+      allow read, write: if isSameTenant(resource);
+    }
+
+    match /progress/{id} {
+      allow read, write: if isSameTenant(resource);
+    }
+
+    match /logs/{id} {
+      allow read: if isSameTenant(resource);
+      allow write: if isLoggedIn();
+    }
+  }
+}
+
+🟧 3. Fluxo do Dashboard do Gestor
+🔄 O fluxo é:
+
+Gestor acessa /gestor
+
+Backend consulta:
+
+funcionários ativos
+
+progresso de cada um
+
+simulações realizadas
+
+tarefas concluídas
+
+Painéis mostram:
+
+métricas de desempenho
+
+funcionários com atraso
+
+top performers
+
+alertas importantes
+
+Gestor pode:
+
+enviar mensagens
+
+liberar simuladores específicos
+
+alterar prioridades do plano
+
+🟨 4. Fluxo de Acompanhamento Diário
+Estrutura:
+
+Usuário acessa o DIA X
+
+Interface mostra:
+
+Tarefa diária
+
+Tempo estimado
+
+Ação principal (ler, simular, praticar)
+
+Usuário executa
+
+Sistema salva:
+
+score
+
+tempo gasto
+
+desempenho
+
+feedback da IA
+
+Dashboard atualiza em tempo real
+
+🟥 5. Regras Multi-Tenant
+Todo documento contém:
+tenantId
+createdAt
+updatedAt
+
+Toda consulta:
+where("tenantId", "==", currentTenant)
+
+Toda function:
+if (context.auth.token.tenantId !== tenantId) throw "Unauthorized";
+
+🟩 6. SEGUNDO SIMULADOR (VENDAS / TÉCNICO / COMUNICAÇÃO / LIDERANÇA)
+
+Aqui está um simulador de vendas:
+
+export const vendasSim = chatFlow({
+  name: "simulador_vendas",
+  description: "Simulador realista de vendas",
+  async run({ input, userId }) {
+    const systemPrompt = `
+      Você é um cliente avaliando uma proposta.
+      Avalie persuasão, clareza e empatia.
+      Ajuste a dificuldade.
+      Avalie de 0 a 10.
+      Gere feedback.
+    `;
+
+    const response = await this.llm.generate({ system: systemPrompt, user: input });
+
+    await firestore().collection("simulations").add({
+      userId,
+      type: "vendas",
+      response,
+      score: response.meta.score,
+      timestamp: Date.now()
+    });
+
+    return response.text;
+  },
+});
+
+🎨 7. Branding Completo SKILLSHIFT
+🎨 Paleta
+Cor	Hex
+Azul Futurista	#2D6DF6
+Azul Escuro	#1B2A4A
+Branco	#FFFFFF
+Cinza Neutro	#F3F4F6
+Verde Sucesso	#22C55E
+🖋 Tipografia
+
+Inter (corpo)
+
+Source Code Pro (código)
+
+Montserrat Bold (títulos opcionais)
+
+🧿 Logo (Descrição para designer)
+
+Um ícone minimalista representando evolução:
+
+• Anéis concêntricos subindo
+• Símbolo de “crescimento em camadas”
+• Visual futurista
+• Azul #2D6DF6 como cor primária
+• Nome SKILLSHIFT em tipografia bold e moderna
+
+🧩 Slogans
+
+"Evolua em 30 dias."
+
+"Aprender nunca foi tão rápido."
+
+"Seu próximo nível começa agora."
+
+"IA que acelera carreiras."
+
+📊 8. Pitch Deck Completo (versão texto profissional)
+Slide 1 — Título
+
+SkillShift: A plataforma de IA que transforma trabalhadores comuns em especialistas em 30 dias.
+
+Slide 2 — Problema
+
+Treinamentos corporativos são caros
+
+Pouco personalizados
+
+Lentos
+
+Sem métricas reais
+
+Pouco escaláveis
+
+Slide 3 — Solução
+
+SkillShift cria planos personalizados com IA:
+✔ diagnóstico
+✔ plano 30
+✔ simulações
+✔ feedback
+✔ métricas
+✔ dashboards
+
+Slide 4 — MVP
+
+Next.js
+
+Firebase
+
+Genkit
+
+Multi-tenant
+
+Slide 5 — Tecnologia
+
+IA generativa
+
+Simuladores de decisão
+
+Avaliação automática
+
+Personalização real
+
+Slide 6 — Mercado
+
+Treinamento corporativo: $355 bilhões/ano
+Mercado totalmente aberto para IA.
+
+Slide 7 — Modelo de negócios
+
+SaaS B2B:
+
+R$ 20 a R$ 80 por funcionário/mês
+
+Contratos anuais
+
+Slide 8 — Roadmap
+
+MVP
+
+Simuladores avançados
+
+Gamificação
+
+Marketplace de cursos
+
+IA sombra
+
+Onboarding inteligente
+
+Slide 9 — Time
+
+Você + IA (por enquanto 😎)
+
+Slide 10 — Call to Action
+
+Vamos acelerar carreiras e reinventar o aprendizado.
+
+🎬 9. Scripts de Vídeos de Apresentação
+🎥 Vídeo 1 — “O que é o SkillShift?”
+
+“Imagine transformar qualquer funcionário em especialista em 30 dias.
+Isso é o SkillShift — a plataforma de IA que cria planos ultra-personalizados, simuladores realistas e evolução diária.”
+
+🎥 Vídeo 2 — “Como funciona o Plano 30?”
+
+“O Plano 30 é um programa adaptativo.
+Todos os dias, o usuário recebe uma tarefa prática.
+Simulações, quizzes, exercícios reais.
+No final, ele domina a habilidade.”
+
+🎥 Vídeo 3 — “Benefícios para empresas”
+
+“Treinar equipes nunca foi tão rápido ou barato.
+SkillShift reduz custos, aumenta engajamento e entrega métricas reais de evolução.”
+
+🎥 Vídeo 4 — “O futuro da aprendizagem”
+
+“Não aprendemos mais como em 1990.
+Com IA, o aprendizado se adapta à pessoa, não o contrário.”

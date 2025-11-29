@@ -1,0 +1,18 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isLoggedIn() { return request.auth != null; }
+    function sameTenant() { return isLoggedIn() && request.auth.token.tenantId == resource.data.tenantId; }
+
+    match /users/{userId} { allow read, write: if isLoggedIn() && request.auth.uid == userId && sameTenant(); }
+    match /plans/{planId} { allow read, write: if sameTenant(); }
+    match /diagnostics/{id} { allow read, write: if sameTenant(); }
+    match /tasks/{id} { allow read, write: if sameTenant(); }
+    match /simulations/{id} { allow read, write: if sameTenant(); }
+    match /progress/{id} { allow read, write: if sameTenant(); }
+    match /logs/{id} {
+      allow read: if sameTenant();
+      allow write: if isLoggedIn();
+    }
+  }
+}

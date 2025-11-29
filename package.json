@@ -1,0 +1,11 @@
+{
+  "name": "skillshift-root",
+  "private": true,
+  "workspaces": ["skillshift"],
+  "scripts": {
+    "dev": "npm --prefix skillshift run dev",
+    "build": "npm --prefix skillshift run build",
+    "start": "npm --prefix skillshift run start",
+    "lint": "npm --prefix skillshift run lint"
+  }
+}

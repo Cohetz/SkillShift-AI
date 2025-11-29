@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body { font-family: theme('fontFamily.sans'); }
+.input { @apply border rounded px-3 py-2 w-full; }
+.btn-primary { @apply bg-brand text-white px-4 py-2 rounded font-medium hover:bg-brand-dark; }
